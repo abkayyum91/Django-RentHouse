@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %} Add New Room {% endblock %}
+
+{% block head_block %}
+<style>
+    .form-indication {
+        background-color: #063466c5;
+    }
+
+    .form-indication p {
+        font-size: large;
+        margin: 0;
+    }
+
+    #id_room_type li {
+        list-style: none;
+    }
+
+    .mbf-2 {
+        margin-bottom: 8px;
+    }
+
+    .custom-body-content {
+        background-color: rgb(255, 255, 255);
+    }
+    .form-check-input:checked {
+    background-color: #063466;
+    border-color: #063466;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+{% for msg in messages %}
+<div class="alert alert-{{msg.tags}} fade show p-2 m-0" role="alert">
+    <strong>Warning!</strong> <br>
+    {{msg}}
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="form-header text-center p-2">
+    <h4>Fill The Following Detail's To Register New Room</h4>
+</div>
+
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row w-100 mx-auto">
+        <!-- Owner Information -->
+        <div class="col-12 form-indication p-2 my-2 text-white">
+            <p>Owner Information</p>
+        </div>
+        <div class="col-md-3 mbf-2">
+            <label for="title" class="form-label">Title</label>
+            {{form.title}}
+            {{form.title.errors}}
+        </div>
+        <div class="col-md-9 mbf-2">
+            <label for="name" class="form-label">Name</label>
+            {{form.name}}
+            {{form.name.errors}}
+        </div>
+        <div class="col-md-6 mbf-2">
+            <label for="email" class="form-label">Email</label>
+            {{form.email}}
+            {{form.email.errors}}
+        </div>
+        <div class="col-md-6 mbf-2">
+            <label for="phone" class="form-label">Contact Number (Optional)</label>
+            {{form.contact}}
+            {{form.contact.errors}}
+        </div>
+
+        <!-- Room Information -->
+        <div class="col-12 form-indication p-2 my-2 text-white">
+            <p>Room Information</p>
+        </div>
+        <div class="col-md-4 mbf-2">
+            <label class="form-label lead" for="rtype">For Rent</label>
+            {{form.for_rent}}
+            {{form.for_rent.errors}}
+        </div>
+        <div class="col-md-4 mbf-2 ">
+            <label class="form-label lead" for="rtype">Basic Facilities</label><br>
+            {{form.water_supply}}
+            {{form.water_supply.errors}}
+            <label class="form-check-label" for="kitchen">Water Supply</label><br>
+            {{form.washroom}}
+            {{form.washroom.errors}}
+            <label class="form-check-label" for="washroom">Washroom</label><br>
+            {{form.kitchen}}
+            {{form.kitchen.errors}}
+            <label class="form-check-label" for="washroom">Kitchen</label><br>
+            {{form.parking_space}}
+            {{form.parking_space.errors}}
+            <label class="form-check-label" for="washroom">Parking Space</label>
+        </div>
+        <div class="col-md-4 mbf-2">
+            <label for="nroom" class="form-label lead"> Total Room</label>
+            {{form.troom}}
+            {{form.troom.errors}}
+
+            <label for="nroom" class="form-label mt-1 lead">Rent Price (IN INR)</label>
+            {{form.price}}
+            {{form.price.errors}}
+        </div>
+        <div class="col-12">
+            <label for="description" class="form-label lead">Room Description</label>
+            {{form.desc}}
+            {{form.desc.errors}}
+        </div>
+
+        <!-- Room Address Information -->
+        <div class="col-12 form-indication p-2 my-2 text-white">
+            <p>Room Address</p>
+        </div>
+        <div class="col-md-4 mbf-2">
+            <label for="country" class="form-label">Country</label>
+            {{form.country}}
+            {{form.country.errors}}
+        </div>
+        <div class="col-md-4 mbf-2">
+            <label for="state" class="form-label">State</label>
+            {{form.state}}
+            {{form.state.errors}}
+        </div>
+        <div class="col-md-4 mbf-2">
+            <label for="district" class="form-label">District</label>
+            {{form.district}}
+            {{form.district.errors}}
+        </div>
+        <div class="col-md-8 mbf-2">
+            <label for="nroom" class="form-label">Nearest City</label>
+            {{form.nearest_city}}
+            {{form.nearest_city.errors}}
+        </div>
+        <div class="col-md-4 mbf-2">
+            <label for="nroom" class="form-label">Zipcode/Pincode</label>
+            {{form.pincode}}
+            {{form.pincode.errors}}
+        </div>
+        <div class="col-12 mbf-2">
+            <label for="nroom" class="form-label">Room Address</label>
+            {{form.address}}
+            {{form.address.errors}}
+        </div>
+
+        <!-- Room Image  -->
+        <div class="col-12 form-indication p-2 my-3 text-white">
+            <p>Upload Room Images (Min-3)</p>
+        </div>
+        <div class="col-md-4 mbf-2">
+            {{form.rmg1}}
+            {{form.rmg1.errors}}
+        </div>
+        <div class="col-md-4 mbf-2">
+            {{form.rmg2}}
+            {{form.rmg2.errors}}
+        </div>
+        <div class="col-md-4 mbf-2">
+            {{form.rmg3}}
+            {{form.rmg3.errors}}
+        </div>
+
+        <!-- Room Agreement -->
+        <div class="col-12 form-indication p-2 my-3 text-white">
+            <p>Upload Agreement In PDF (Optional)</p>
+        </div>
+        <div class="col-md-6">
+            {{form.agreement}}
+            {{form.agreement.errors}}
+        </div>
+        <div class="col-12 text-center my-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}
+
+{% block js_block %}
+<script src="{% static 'js/addroom.js' %}"></script>
+{% endblock %}

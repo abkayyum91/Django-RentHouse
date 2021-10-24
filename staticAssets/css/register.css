@@ -1,0 +1,53 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #063466;
+}
+
+.form-register {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.goto a{
+  text-decoration: none;
+}
+
+.form-check-input:checked{
+  background-color: #063466;
+  border-color: #063466;
+}
+
+/* Cutomizing btn-primary  */
+.btn-primary:hover {
+    background-color: #ffffff;
+    color: #063466;
+}
+
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #063466;
+    border-color: #06346665;
+    color: #ffffff;
+}
+
+/* Decorating error messages */
+.errorlist{
+  color: red;
+  text-align: justify;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 8px;
+}

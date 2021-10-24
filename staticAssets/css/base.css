@@ -1,0 +1,74 @@
+body{
+    background-color: #dfe4de;
+}
+
+.form-control{
+    background-color: #f8f8f8e0;
+}
+
+.custom-header {
+    background-color: #063466;
+}
+
+.custom-width {
+    width: 77%;
+}
+
+.custom-size {
+    max-width: 50em;
+}
+
+.custom-body-content{
+    background-color: white;
+    max-width: 50em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    /* padding-bottom: 4px;
+    margin-bottom: 4px; */
+}
+
+.custom-footer {
+    background-color: #063466;
+}
+
+/* Customizing Dropdown menu */
+.custom-dropdown {
+    background-color: #063466c7;
+}
+
+.custom-dropdown li a {
+    color: white;
+}
+
+.custom-dropdown li a:hover {
+    background-color: #063466;
+    color: rgba(255, 255, 255, 0.767);
+}
+
+#profile-pic{
+    width: 25px;
+    height: 25px;
+}
+
+/* Decorating error messages */
+.errorlist{
+    color: red;
+}
+
+/* Cutomizing btn-primary  */
+.btn-primary:hover {
+    background-color: #ffffff;
+    color: #063466;
+}
+
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #063466;
+    border-color: #06346665;
+    color: #ffffff;
+}

@@ -1,0 +1,49 @@
+{% extends 'delete_room.html' %}
+
+{% block title %} Delete User {% endblock %}
+
+
+{% block head_block %}
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .custom-body-content {
+        width: 100%;
+        height: 100%;
+    }
+
+    footer {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container p-2 w-100">
+    <p class="lead fs-3 my-4">Are you sure you want to delete your account? All of the following details and their
+        related items will be deleted: </p>
+
+        <div class="details">
+            <p class="fs-3">Summary: </p>
+            <ul>
+                <li>Your Account: <strong>{{user.username}}</strong></li>
+                <li>Total Added Room: <strong>{{rooms.count}}</strong></li>
+            </ul>
+        </div>
+
+    <form action="" method="post" class="py-3">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit">Yes I'm Sure</button>
+        <a href="{% url 'account_settings' %}" class="btn btn-secondary">No, take me back</a>
+    </form>
+
+</div>
+{% endblock %}

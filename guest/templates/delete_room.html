@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %} Delete Room - RENT HOUSE {% endblock %}
+
+{% block head_block %}
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .custom-body-content {
+        width: 100%;
+        height: 100%;
+    }
+
+    footer {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container p-2 w-100">
+    <p class="lead fs-3 my-4">Are you sure want to delete your room?</p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Room-ID</th>
+                <th scope="col">Owner Name</th>
+                <th scope="col">For Rent</th>
+                <th scope="col">Rooms</th>
+                <th scope="col">Price</th>
+                <th scope="col">Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">{{room.id}}</th>
+                <td>{{room.name|lower|title}}</td>
+                <td>{{room.for_rent}}</td>
+                <td>{{room.troom}}</td>
+                <td>&#8377; {{room.price}}</td>
+                <td>{{room.address|lower|title}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <form action="" method="post" class="py-3">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit">Yes I'm Sure</button>
+        <a href="{% url 'dashboard' user.id %}" class="btn btn-secondary">No, take me back</a>
+    </form>
+
+</div>
+{% endblock %}

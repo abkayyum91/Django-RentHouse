@@ -1,0 +1,94 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %} {% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'siteImage/apple.ico' %}" sizes="32x32" type="image/png">
+    <!-- External CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <!-- Bootsrap icon link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+{% block head_block %} {% endblock %}
+
+</head>
+
+<body>
+    <header class="custom-header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid custom-width">
+                <a class="navbar-brand" href="/">RENT HOUSE</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link {% block aboutactive %} {% endblock aboutactive %}" href="{% url 'about' %}">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% block contactactive %} {% endblock contactactive %}" href="{% url 'contact' %}">Contact Us</a>
+                        </li>
+
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img class="rounded-circle" src="{{ request.user.profilepic.image.url }}" id="profile-pic"> {{user.username}}
+                            </a>
+                            <ul class="dropdown-menu custom-dropdown text-white" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'dashboard' user.id %}">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{% url 'account_settings' %}">Account Settings</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="custom-body-content">
+       {% block content %} {% endblock %}
+    </section>
+
+    {% block body %}  {% endblock %}
+
+    <footer class="custom-footer text-white text-center">
+        <div class="custom-size mx-auto p-2">
+            <p>Buyers decide in the first eight seconds of seeing a home if they’re interested in buying it. Get out of
+                your
+                car, walk in their shoes and see what they see within the first eight seconds.</p>
+            <p>All Right Reserve to © RentHouse </p>
+        </div>
+    </footer>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+{% block js_block %} {% endblock %}
+</body>
+
+</html>

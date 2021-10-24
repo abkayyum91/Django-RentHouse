@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+
+{% block title %} Room Detail {% endblock %}
+
+{% block head_block %}
+<style>
+    .custom-body-content {
+        max-width: 60em;
+    }
+
+    .price {
+        color: green;
+    }
+
+    .rimage img {
+        height: 320px;
+    }
+
+    .customer-review small {
+        color: #063466;
+    }
+
+    .nav-tabs button:hover {
+        background-color: #063466;
+        color: white;
+    }
+
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        /* background-color: #063466; */
+        /* color: white; */
+        border-top-color: #063466;
+        border-left-color: #063466;
+        border-right-color: #063466;
+    }
+
+    .nav-tabs .nav-link {
+        color: #063466;
+    }
+
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        color: white;
+        background-color: #063466;
+    }
+
+    .room-image img {
+        height: 320px;
+        width: 582px;
+    }
+
+    .bg-custom {
+        background-color: #063466;
+    }
+    .review-list{
+        max-height: 375px;
+        overflow-y: scroll;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Success messages after review submission -->
+{% if messages %}
+{% for msg in messages %}
+<div class="alert alert-success alert-dismissible fade show p-1 mt-2" role="alert">
+    <strong>Success!</strong> <br>
+    {{msg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+
+<!-- warning message for invalid review -->
+{% if warmsg %}
+<div class="alert alert-warning alert-dismissible fade show p-1 mt-2" role="alert">
+    <strong>Warning!</strong> <br>
+    {{warmsg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<!-- Room Details -->
+<p class="fs-4 lead">{{view.for_rent}} Details</p>
+<div class="row">
+    <div class="col-md-8 rimage">
+        <div id="roomImage" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#roomImage" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#roomImage" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#roomImage" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner room-image">
+                <div class="carousel-item active">
+                    <img src="{{view.rmg1.url}}" class="d-block w-100" alt="Room Image-1">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{view.rmg2.url}}" class="d-block w-100" alt="Room Image-2">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{view.rmg3.url}}" class="d-block w-100" alt="Room Image-3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#roomImage" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#roomImage" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <p class="fs-5">Rent Price: <strong class="price">&#8377; {{view.price}}/-</strong></p>
+        <p>Publish Date: <strong>{{view.pub_date.date}}</strong></p>
+        <p>Agreement: <a href="{{view.agreement.url}}" target="_blank">Check Agreement</a></p>
+        <p class="fs-4 lead">Owner Details</p>
+        <hr>
+        <p>Name: <strong>{{view.title}} {{view.name|upper}}</strong></p>
+        <p>E-mail: <strong>{{view.email}}</strong></p>
+        <div class="chat">
+            <a href="#" class="btn btn-warning ms-2">Message</a>
+        </div>
+    </div>
+
+    <div class="col-md-6 mt-2">
+        <p class="fs-4 lead">Description</p>
+        <hr>
+        <p>{{view.desc}}</p>
+    </div>
+    <div class="col-md-6 mt-2">
+        <p class="fs-4 lead">{{view.for_rent}} Specification</p>
+        <hr>
+        <p class="mb-2">For Rent: <strong>{{view.for_rent}}</strong></p>
+        <p class="mb-2">Total Room: <strong>{{view.troom}}</strong></p>
+        <p class="mb-2">Water Supply:
+            {% if view.water_supply %}
+            <strong>YES</strong>
+            {% else %}
+            <strong>NO</strong>
+            {% endif %}
+        </p>
+        <p class="mb-2">Kitchen:
+            {% if view.kitchen %}
+            <strong>YES</strong>
+            {% else %}
+            <strong>NO</strong>
+            {% endif %}
+        </p>
+        <p class="mb-2">Washroom:
+            {% if view.washroom %}
+            <strong>YES</strong>
+            {% else %}
+            <strong>NO</strong>
+            {% endif %}
+        </p>
+        <p class="mb-2">Parking Space:
+            {% if view.parking_space %}
+            <strong>YES</strong>
+            {% else %}
+            <strong>NO</strong>
+            {% endif %}
+        </p>
+        <p class="fs-4 lead">{{view.for_rent}} Address</p>
+        <hr>
+        <p class="mb-2">State Name: <strong>{{view.state|lower|title}}</strong></p>
+        <p class="mb-2">District Name: <strong>{{view.district|lower|title}}</strong></p>
+        <p class="mb-2">Pincode: <strong>{{view.pincode}}</strong></p>
+        <p class="mb-2">Nearest City: <strong>{{view.nearest_city|lower|title}}</strong></p>
+        <p class="mb-2">Address: <strong>{{view.address|lower|title}}</strong></p>
+    </div>
+</div>
+
+<!-- tabs for reviews -->
+<div class="row">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="guest" data-bs-toggle="tab" data-bs-target="#guestReview" type="button"
+                role="tab" aria-controls="guestReview" aria-selected="true">Guest Reviews ({{reviews.count}})</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="giveFeed" data-bs-toggle="tab" data-bs-target="#feedback" type="button"
+                role="tab" aria-controls="feedback" aria-selected="false">Give Feedback</button>
+        </li>
+    </ul>
+    <div class="tab-content bg-custom mb-2 px-0" id="myTabContent">
+        <!-- Guest Reviews -->
+        <div class="tab-pane fade show active {% if reviews.count > 3 %} review-list {% endif %}" id="guestReview" role="tabpanel" aria-labelledby="guest">
+            <div class="row m-0 py-2">
+                
+                {% for review in reviews %}
+                <div class="customer-review mt-2">
+                    <div class="list-group">
+                        <div class="list-group-item bg-light">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{review.experience}}</h5>
+                                <small>{{review.pub_date|timesince}}</small>
+                            </div>
+                            <p class="mb-1">{{review.explain_experience}}
+                            </p>
+                            <small class="muted">- {{review.name}}</small>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="fs-3 lead text-white">Sorry! There is no review to show you?</p>
+                {% endfor %}
+
+            </div>
+        </div>
+        <!-- Give Feedback -->
+        <div class="tab-pane fade" id="feedback" role="tabpanel" aria-labelledby="giveFeed">
+            <form action="" method="post" class="py-2 text-white">
+                {% csrf_token %}
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <label for="name" class="form-label">Youe Name</label>
+                        {{form.name}}
+                        {{form.name.errors}}
+                    </div>
+                    <div class="col-md-8">
+                        <label for="exp" class="form-label">Experience Level</label>
+                        {{form.experience}}
+                        {{form.experience.errors}}
+                    </div>
+                    <div class="col-md-8">
+                        <label for="explain-exp" class="form-label">Explain Your Experience</label>
+                        {{form.explain_experience}}
+                        {{form.explain_experience.errors}}
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-3 ">
+                    <input class="btn btn-warning" type="submit" value="Submit Feedback">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

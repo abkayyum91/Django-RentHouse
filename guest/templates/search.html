@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% block title %} Search Result {% endblock %}
+
+{% block head_block %}
+<style>
+    .room-image img {
+        height: 260px;
+        width: 385px;
+    }
+
+    .card-header {
+        background-color: #063466;
+    }
+
+    .custom-background{
+        background-color: #063466;
+    }
+    .price {
+        color: green;
+    }
+    .form-check-input:checked {
+    background-color: #063466;
+    border-color: #063466;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% if allrooms %}
+<!-- Success message regarding search result -->
+<div class="alert alert-success fade show mb-1 p-1" role="alert">
+    <strong>Congratulations!</strong> We have found <strong>{{allrooms.count}}</strong> Search Result in <strong>{{qset}}</strong>
+</div>
+{% else %}
+<!-- error message for empty search result -->
+<div class="alert alert-danger fade show" role="alert">
+    <strong>Oops! </strong> There Is Nothing To Show! Try Another.
+</div>
+{% endif %}
+
+<!-- Filter for searched page -->
+<div class="custom-filter text-center sticky-top">
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#customFilter"
+        aria-controls="offcanvasLeft"><i class="bi bi-funnel-fill"></i> Apply Filter</button>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="customFilter" aria-labelledby="offcanvasLeftLabel">
+        <div class="offcanvas-header py-2 custom-background text-white">
+            <h4 id="offcanvasLeftLabel">Select Constraint</h4>
+            <button type="button" class="btn-close text-reset btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <!-- offcanvas body -->
+        <div class="offcanvas-body py-2">
+            <form action="{% url 'search_filter' %}" class="text-start" method="get">
+                <div class="row mb-2">
+                    <div class="col-12 mb-2 ">
+                        <p class="mb-2 fs-5 lead">Searched Location</p>
+                        <input type="text" class="form-control" name="qset" value="{{qset}}">
+                    </div>
+
+                    <p class="mb-0 fs-5 lead">Selcet Price Range</p>
+                    <div class="col-md-6 pt-2">
+                        <label for="min" class="form-label">Min</label>
+                        <select class="form-select" name="min_price">
+                            <option value="2000" selected>&#8377; 2,000/-</option>
+                            <option value="3000">&#8377; 3,000/-</option>
+                            <option value="4000">&#8377; 4,000/-</option>
+                            <option value="5000">&#8377; 5,000/-</option>
+                            <option value="6000">&#8377; 6,000/-</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-6 pt-2">
+                        <label for="max" class="form-label">Max</label>
+                        <select class="form-select" name="max_price">
+                            <option value="7000" selected>&#8377; 7,000/-</option>
+                            <option value="10000">&#8377; 10,000/-</option>
+                            <option value="14000">&#8377; 14,000/-</option>
+                            <option value="20000">&#8377; 20,000/-</option>
+                            <option value="30000">&#8377; 30,000/- or more</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-12 mb-2">
+                            <p class="mb-2 fs-5 lead">Number Of Rooms</p>
+                            <input type="number" class="form-control" name="nroom" value="1">
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <p class="mb-0 fs-5 lead">Select Rent Preference</p>
+                    <div class="col-md-6 pt-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="rtype" id="home" value="House">
+                            <label class="form-check-label" for="home">House</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="rtype" id="apartment" value="Apartment">
+                            <label class="form-check-label" for="apartment">Apartments</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="rtype" id="room" value="Room" checked>
+                            <label class="form-check-label" for="room">Rooms</label>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 pt-2">
+                        <div class="form-check">
+                            <input class="form-check-input" name="water" type="checkbox" id="water-supply" value="True">
+                            <label class="form-check-label" for="water-supply">Water Supply</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" name="kitchen" type="checkbox" id="kitchen" value="True">
+                            <label class="form-check-label" for="kitchen">Kitchen</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" name="washroom" type="checkbox" id="washroom" value="True" checked>
+                            <label class="form-check-label" for="washroom">Washroom</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" name="parking" type="checkbox" id="parking-space"
+                                value="True">
+                            <label class="form-check-label" for="parking-space">Parking Place</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col text-center">
+                        <button class="btn btn-primary " type="submit"><i class="bi bi-funnel-fill"></i> Apply
+                            Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Search result -->
+<div class="search-result">
+    <!-- Card for single room -->
+    {% for r in allrooms %}
+    <div class="card mt-2 bg-light text-dark">
+        <div class="card-header text-center text-white">
+            <p class="m-0"><span class="lead">Owner: </span>{{r.title}}. {{r.name|upper}}</p>
+        </div>
+        <div class="row card-body p-0 mx-0">
+            <div class="col-md-6 col-sm-12 px-0">
+                <!-- Carousel Images For Room -->
+                <div id="qrv{{r.id}}" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner room-image">
+                        <div class="carousel-item active">
+                            <img src="{{r.rmg1.url}}" class="card-img-top" alt="Room image 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{r.rmg2.url}}" class="card-img-top" alt="Room image 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{r.rmg3.url}}" class="card-img-top" alt="Room image 3">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#qrv{{r.id}}"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#qrv{{r.id}}"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 px-0">
+                <!-- Short Description of Rooms -->
+                <ul class="list-group list-group-flush text-start">
+                    <li class="list-group-item">For Rent: <strong>{{r.for_rent}}</strong><span class=" ms-2 fst-normal">({{r.troom}} Rooms)</span> </li>
+                    <li class="list-group-item">Rent Price: <strong class="price">&#8377; {{r.price}}/-</strong></li>
+                    <li class="list-group-item">Nearest City: <strong>{{r.nearest_city|lower|title}}</strong></li>
+                    <li class="list-group-item">Address: <span class="fw-bold">{{r.address|lower|title}}</span></li>
+                </ul>
+                <div class="p-2 text-center">
+                    <a href="{% url 'room' r.id %}" class="btn btn-primary">View Room</a>
+                    <a href="{% url 'contact_owner' r.id %}" class="btn btn-warning ms-2">Contact Owner</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

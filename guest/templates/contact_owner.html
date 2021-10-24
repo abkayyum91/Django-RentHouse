@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %} Delete Room - RENT HOUSE {% endblock %}
+
+{% block head_block %}
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .custom-body-content {
+        width: 100%;
+        height: 100%;
+    }
+
+    footer {
+        display: none;
+    }
+    .price {
+        color: green;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Success message after user detail send to the owner -->
+{% if messages %}
+{% for msg in messages %}
+<div class="alert alert-success alert-dismissible fade show p-1 mt-2" role="alert">
+    <strong>Success!</strong> <br>
+    {{msg}}
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="contact-owner-title">
+    <p class="fs-4 lead">Your filled details will be sented to the {{room.for_rent}} owner.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-8 py-2">
+        <form action="" method="post">
+            {% csrf_token %}
+                <div class="form-floating mb-3">
+                    <input type="text" name="name" class="form-control" id="name">
+                    <label for="name" class="form-label">Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="tel" class="form-control" name="phone" id="mobile">
+                    <label for="mobile" class="form-label">Mobile number</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" id="msg" rows="5" name="msg" style="height: 120px"></textarea>
+                    <label for="msg" class="form-label">Write your message</label>
+                </div>
+                <div class="justify-content-center">
+                    <button type="submit" class="btn btn-primary">Send Details</button>
+                </div>
+        </form>
+    </div>
+
+    <div class=" col-md-4 py-2 room-detail">
+        <p class="fs-5">Owner Details</p>
+        <hr class="my-2">
+        <p class="fs-6 lead">Name: {{room.name}}</p>
+        <p class="fs-6 lead">E-mail: {{room.email}}</p>
+
+
+        <p class="fs-5">{{room.for_rent}} Details</p>
+        <hr class="my-2">
+        <p class="fs-6 lead">For Rent: {{room.for_rent}}</p>
+        <p class="fs-6 lead">Total Room: {{room.troom}}</p>
+        <p class="fs-6 lead">Rent Price: <strong class="price">&#8377; {{room.price}}/-</strong></p>
+        <p class="fs-6 lead">Address: {{room.address|lower|title}}</p>
+    </div>
+</div>
+
+
+
+{% endblock %}

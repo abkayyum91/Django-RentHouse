@@ -1,0 +1,69 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register - GuestHouse</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- Bootstrap icon  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/register.css' %}" rel="stylesheet">
+</head>
+
+<body class="text-center">
+    <main class="form-register bg-light">
+        {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-{{msg.tags}} fade show p-2 text-start" role="alert">
+            <strong>{{msg.tags|title}}!</strong> <br>
+            {{msg}}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <h1 class="h3 mb-3 fw-normal">LOGIN</h1>
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="Username" name="username">
+                <label for="Username">Username</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="password" class="form-control" id="password" name="password">
+                <label for="password">Password</label>
+            </div>
+            
+            <!-- Fetching next vaule from the url for login_required page -->
+            {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+            {% endif %}
+
+            <div class="d-flex justify-content-center mt-3 ">
+                <input class="btn btn-primary form-control" type="submit" value="Login">
+            </div>
+        </form>
+        <div class="mt-2 goto">
+            <div class="forgot-password mb-2 text-start">
+                <a href="{% url 'reset_password' %}" class="text-danger p-1">Forgot Password?</a>
+            </div>
+            <div class="d-flex justify-content-center links">
+                Don't have an account? <a href="{% url 'register' %}" class="ms-2">Create Account</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %} Contact Us {% endblock %}
+{% block contactactive %} active {% endblock contactactive %}
+
+{% block head_block %}
+<style>
+    /* creating new btn-site button */
+    .btn-site {
+        background-color: white;
+        border-color: #06346665;
+        color: #063466;
+    }
+
+    .btn-site:hover {
+        background-color: #06346665;
+        color: white;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+{% for msg in messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> <br>
+    {{msg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+
+<form action="" method="post" class="p-2">
+    {% csrf_token %}
+    <h3 id="form-title">Contact Us Regarding Any Query</h3>
+    <div class="mb-3">
+        <label for="nameInput" class="form-label">Name</span></label>
+        {{form.name}}
+        {{form.name.errors}}
+    </div>
+    <div class="mb-3">
+        <label for="emailInput" class="form-label">Email</label>
+        {{form.email}}
+        {{form.email.errors}}
+    </div>
+    <div class="mb-3">
+        <label for="subjectInput" class="form-label">Query Heading</label>
+        {{form.subject}}
+        {{form.subject.errors}}
+    </div>
+    <div class="mb-3">
+        <label for="queryInput" class="form-label">Explain Query</label>
+        {{form.query}}
+        {{form.query.errors}}
+    </div>
+    <input type="submit" class="btn btn-primary me-2" value="Submit">
+    <a href="{% url 'index' %}" class="btn btn-site">Cancel</a>
+</form>
+
+{% endblock %}

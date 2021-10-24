@@ -1,0 +1,45 @@
+.custom-size{
+    max-width: 50em;
+}
+.custom-footer{
+    background-color: #063466;
+}
+.custom-header{
+    background-color: #063466;
+}
+.site-search {
+    max-width: 30em;
+  }
+.custom-width{
+    width: 77%;
+}
+
+/* Customizing Dropdown menu */
+.custom-dropdown{
+    background-color:  #063466c7;
+}
+.custom-dropdown li a{
+    color:  white;
+}
+.custom-dropdown li a:hover{
+    background-color: #063466;
+    color:  rgba(255, 255, 255, 0.767);
+}
+
+#profile-pic{
+    width: 25px;
+    height: 25px;
+}
+
+/* Cutomizing btn-primary  */
+.btn-primary:hover{
+    background-color: #06346685;
+}
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:visited {
+   background-color: #063466;
+   border-color: white;
+   color: #ffffff;
+}

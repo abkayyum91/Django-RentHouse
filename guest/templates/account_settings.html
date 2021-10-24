@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %} Account Settings {% endblock %}
+
+{% block head_block %}
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .custom-body-content {
+        display: none;
+    }
+
+    .col-md-3,
+    .col-md-8 {
+        background-color: white;
+    }
+
+    .profile-pic img {
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mb-auto">
+    {% if messages %}
+    {% for msg in messages %}
+    <div class="alert alert-success alert-dismissible fade show p-1 mt-2" role="alert">
+        <strong>Success!</strong> {{msg}}
+        <button type="button" class="btn-close p-2" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="row p-2">
+        <div class="col-md-3 mx-auto mb-2 h-100 text-center p-2">
+            <div class="back-home">
+                <a class="btn btn-primary form-control" href="{% url 'index' %}" role="button">&#8592; Back to Home</a>
+            </div>
+            <hr class="my-2">
+            <p class="fs-4 mb-2">Account Settings</p>
+            <hr>
+            <div class="profile-pic ">
+                <img src="{{user.profilepic.image.url}}" alt="">
+            </div>
+
+        </div>
+        <div class="col-md-8 mx-auto h-100 py-2 px-4">
+            <p class="fs-4">User Information</p>
+            <hr>
+            <div class="user-detail">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="fname" class="form-label">First Name</label>
+                            {{u_form.first_name}}
+                            {{u_form.first_name.errors}}
+                        </div>
+                        <div class="col-md-7 mb-3">
+                            <label for="lname" class="form-label">Last Name</label>
+                            {{u_form.last_name}}
+                            {{u_form.last_name.errors}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            {{u_form.username}}
+                            {{u_form.username.errors}}
+                        </div>
+                        <div class="col-md-7 mb-3">
+                            <label for="email" class="form-label">Your E-mail</label>
+                            {{u_form.email}}
+                            {{u_form.email.errors}}
+                        </div>
+                    </div>
+                    
+                    <!-- user profile picture using a different form -->
+                    <div class="col-md-5 mb-3">
+                        <label for="profilepic" class="form-label">Upload Profile Picture</label>
+                        {{p_form.image}}
+                        {{p_form.image.errors}}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+
+            <!-- Update password using old password -->
+            <div class="update-password">
+                <p class="fs-4 mt-3">Update Password</p>
+                <hr>
+                <a href="{% url 'update_password' %}" class="btn btn-primary">Update Password Using Old Password</a>
+            </div>
+
+            <!-- Delete user account -->
+            <div class="update-password">
+                <p class="fs-4 mt-3">Delete Account</p>
+                <hr>
+                <a href="{% url 'delete_user_account' user.id %}" class="btn btn-danger">Delete Account Permanently</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% block js_block %}
+<script>
+    //Query All input fields
+    var form_fields = document.getElementsByTagName('input')
+
+    for (var field in form_fields) {
+        form_fields[field].className += ' form-control'
+    }
+</script>
+{% endblock %}
+
+{% endblock %}

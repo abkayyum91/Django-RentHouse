@@ -1,0 +1,41 @@
+body{
+    background-color: #f0f1ef;
+}
+.custom-header {
+    background-color: #063466;
+}
+.custom-width {
+    width: 77%;
+}
+
+.bg-custom {
+    background-color: white;
+}
+
+/* Decorating error messages */
+.errorlist{
+    color: red;
+}
+
+/* Cutomizing btn-primary  */
+.btn-primary:hover {
+    background-color: #ffffff;
+    color: #063466;
+}
+
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #063466;
+    border-color: #06346665;
+    color: #ffffff;
+}
+
+
+
+
+
+
+
+
+
